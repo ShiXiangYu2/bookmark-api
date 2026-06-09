@@ -11,6 +11,7 @@ const app = express();
 // Import routes
 const authRoutes = require('./routes/auth');
 const bookmarkRoutes = require('./routes/bookmarks');
+const tagRoutes = require('./routes/tags');
 
 // Database connection
 const connectDB = async () => {
@@ -37,6 +38,7 @@ app.get('/api/health', (req, res) => {
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/bookmarks', bookmarkRoutes);
+app.use('/api/tags', tagRoutes);
 
 // 404 handler
 app.use((req, res) => {
