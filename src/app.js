@@ -12,6 +12,7 @@ const app = express();
 const authRoutes = require('./routes/auth');
 const bookmarkRoutes = require('./routes/bookmarks');
 const tagRoutes = require('./routes/tags');
+const { apiLimiter } = require('./middleware/rateLimit');
 
 // Database connection
 const connectDB = async () => {
@@ -37,8 +38,8 @@ app.get('/api/health', (req, res) => {
 
 // API Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/bookmarks', bookmarkRoutes);
-app.use('/api/tags', tagRoutes);
+app.use('/api/bookmarks', apiLimiter, bookmarkRoutes);
+app.use('/api/tags', apiLimiter, tagRoutes);
 
 // 404 handler
 app.use((req, res) => {
